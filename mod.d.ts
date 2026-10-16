@@ -1,4 +1,4 @@
-/**
+/*
 * @license Apache-2.0
 *
 * Copyright (c) 2026 The Stdlib Authors.
@@ -16,16 +16,29 @@
 * limitations under the License.
 */
 
-'use strict';
+// TypeScript Version: 4.1
+
+/// <reference types="https://cdn.jsdelivr.net/gh/stdlib-js/types@main/index.d.ts"/>
 
 /**
-* Compute the mean absolute percentage error incrementally, ignoring `NaN` values.
+* If provided input values, the accumulator function returns an updated mean absolute percentage error. If not provided input values, the accumulator function returns the current mean absolute percentage error.
 *
-* @module @stdlib/stats-incr-nanmape
+* ## Notes
+*
+* -   If provided `NaN`, it simply ignores that input.
+*
+* @param f - input value
+* @param a - input value
+* @returns mean absolute percentage error or null
+*/
+type accumulator = ( f?: number, a?: number ) => number | null;
+
+/**
+* Returns an accumulator function which incrementally computes the mean absolute percentage error, ignoring `NaN` values.
+*
+* @returns accumulator function
 *
 * @example
-* var incrnanmape = require( '@stdlib/stats-incr-nanmape' );
-*
 * var accumulator = incrnanmape();
 *
 * var m = accumulator();
@@ -37,18 +50,21 @@
 * m = accumulator( NaN, 3.0 );
 * // returns ~33.33
 *
+* m = accumulator( 2.0, NaN );
+* // returns ~33.33
+*
+* m = accumulator( NaN, NaN );
+* // returns ~33.33
+*
 * m = accumulator( 5.0, 2.0 );
 * // returns ~91.67
 *
 * m = accumulator();
 * // returns ~91.67
 */
-
-// MODULES //
-
-var main = require( './main.js' );
+declare function incrnanmape(): accumulator;
 
 
 // EXPORTS //
 
-module.exports = main;
+export = incrnanmape;
